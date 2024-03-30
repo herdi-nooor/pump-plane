@@ -1,3 +1,22 @@
-[gd_scene format=3 uid="uid://owetf75qqn21"]
+[gd_scene load_steps=6 format=3 uid="uid://owetf75qqn21"]
+
+[ext_resource type="PackedScene" uid="uid://erdlygkfowo" path="res://scene/plane.tscn" id="1_n1pds"]
+[ext_resource type="Script" path="res://script/gameplay.gd" id="1_qs2x2"]
+[ext_resource type="PackedScene" uid="uid://q0jtbgoyra2v" path="res://scene/background.tscn" id="2_vpmlg"]
+[ext_resource type="PackedScene" uid="uid://di836l4iqx5sk" path="res://scene/pipe.tscn" id="2_yy3u7"]
+[ext_resource type="PackedScene" uid="uid://j223evu1fxiw" path="res://scene/ground.tscn" id="4_yvhir"]
 
 [node name="gameplay" type="Node2D"]
+script = ExtResource("1_qs2x2")
+pipe_scene = ExtResource("2_yy3u7")
+
+[node name="background" parent="." instance=ExtResource("2_vpmlg")]
+
+[node name="ground" parent="." instance=ExtResource("4_yvhir")]
+
+[node name="plane" parent="." instance=ExtResource("1_n1pds")]
+
+[node name="pipeTimer" type="Timer" parent="."]
+wait_time = 1.5
+
+[connection signal="timeout" from="pipeTimer" to="." method="_on_pipe_timer_timeout"]

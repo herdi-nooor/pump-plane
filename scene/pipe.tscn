@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://di836l4iqx5sk"]
+
+[ext_resource type="Texture2D" uid="uid://ceeu6k7iaugk3" path="res://asset/enemy.png" id="1_x6ejd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3seyk"]
+size = Vector2(40.5, 241)
+
+[node name="Pipe" type="Area2D"]
+
+[node name="up" type="Sprite2D" parent="."]
+position = Vector2(0, -9.53674e-07)
+scale = Vector2(0.26, 1.76)
+texture = ExtResource("1_x6ejd")
+offset = Vector2(0, -110)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, -198)
+shape = SubResource("RectangleShape2D_3seyk")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(3, 178)
+shape = SubResource("RectangleShape2D_3seyk")
+
+[node name="low" type="Sprite2D" parent="."]
+scale = Vector2(0.306667, 1.71333)
+texture = ExtResource("1_x6ejd")
+offset = Vector2(0, 110)
