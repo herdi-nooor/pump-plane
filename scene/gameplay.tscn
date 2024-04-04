@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://owetf75qqn21"]
+[gd_scene load_steps=7 format=3 uid="uid://owetf75qqn21"]
 
 [ext_resource type="PackedScene" uid="uid://erdlygkfowo" path="res://scene/plane.tscn" id="1_n1pds"]
 [ext_resource type="Script" path="res://script/gameplay.gd" id="1_qs2x2"]
 [ext_resource type="PackedScene" uid="uid://q0jtbgoyra2v" path="res://scene/background.tscn" id="2_vpmlg"]
 [ext_resource type="PackedScene" uid="uid://di836l4iqx5sk" path="res://scene/pipe.tscn" id="2_yy3u7"]
 [ext_resource type="PackedScene" uid="uid://j223evu1fxiw" path="res://scene/ground.tscn" id="4_yvhir"]
+[ext_resource type="PackedScene" uid="uid://dm4w18dwbho1r" path="res://scene/game_over.tscn" id="6_hrcnm"]
 
 [node name="gameplay" type="Node2D"]
 script = ExtResource("1_qs2x2")
@@ -13,10 +14,31 @@ pipe_scene = ExtResource("2_yy3u7")
 [node name="background" parent="." instance=ExtResource("2_vpmlg")]
 
 [node name="ground" parent="." instance=ExtResource("4_yvhir")]
+z_index = 1
+position = Vector2(-2, 610)
 
 [node name="plane" parent="." instance=ExtResource("1_n1pds")]
 
 [node name="pipeTimer" type="Timer" parent="."]
-wait_time = 1.5
+process_callback = 0
+wait_time = 0.895
 
+[node name="scoreLabel" type="Label" parent="."]
+z_index = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 168.0
+offset_top = 16.0
+offset_right = 214.0
+offset_bottom = 39.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 40
+text = "Score : 0"
+
+[node name="GameOver" parent="." instance=ExtResource("6_hrcnm")]
+
+[connection signal="hit" from="ground" to="." method="_on_ground_hit"]
 [connection signal="timeout" from="pipeTimer" to="." method="_on_pipe_timer_timeout"]
+[connection signal="Restart" from="GameOver" to="." method="_on_game_over_restart"]

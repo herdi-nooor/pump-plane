@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://dm4w18dwbho1r"]
+
+[ext_resource type="Script" path="res://script/GameOver.gd" id="1_cs1pn"]
+[ext_resource type="Texture2D" uid="uid://bllcs1nao74ke" path="res://asset/backgroundsky.png" id="2_a6h7d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ai0h"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8h3qk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ium86"]
+bg_color = Color(0.0823529, 1, 0, 1)
+
+[node name="GameOver" type="CanvasLayer"]
+script = ExtResource("1_cs1pn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(200, 352)
+scale = Vector2(3.52, 6.50667)
+texture = ExtResource("2_a6h7d")
+
+[node name="RestartButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_6ai0h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8h3qk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ium86")
+text = "restart"
+
+[connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]

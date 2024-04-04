@@ -13,11 +13,23 @@ config_version=5
 config/name="Pump Plane"
 run/main_scene="res://scene/gameplay.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
+boot_splash/show_image=false
+boot_splash/fullsize=false
+boot_splash/use_filter=false
 config/icon="res://icon.svg"
 
 [display]
 
 window/size/viewport_width=400
+window/size/viewport_height=700
+window/size/resizable=false
+
+[internationalization]
+
+rendering/use_filter=true
+rendering/fullsize=true
+rendering/show_image=true
+rendering/size/resizable=true
 
 [rendering]
 

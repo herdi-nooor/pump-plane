@@ -10,8 +10,8 @@ const SCROLL_SPEED : int = 4
 var screen_size : Vector2i
 var ground_height : int
 var obstacle : Array
-const PIPE_DELAY : int = 100
-const PIPE_RANGE : int = 200
+const PIPE_DELAY : int = 350
+const PIPE_RANGE : int = 150
 
 func _ready():
 	screen_size = get_window().size
@@ -23,15 +23,22 @@ func new_game():
 	game_over = false
 	score = 0
 	scroll = 0
+	get_tree().call_group("obstacles", "queue_free")
 	obstacle.clear()
 	generate_pipes()
-	$plane.reset()
+	$plane.reset()	
+	$GameOver.hide()
 	
 func _input(event):
 	if game_over == false:
 		if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-				start_game()
+				if game_running == false :
+					start_game()
+				else:
+					if $plane.flying:
+						$plane.flap()
+						check_top()
 				
 func start_game():
 	game_running = true
@@ -56,8 +63,39 @@ func generate_pipes():
 	pipe.position.x = screen_size.x + PIPE_DELAY
 	pipe.position.y = (screen_size.y - ground_height) / 2 + randi_range(-PIPE_RANGE, PIPE_RANGE)
 	pipe.hit.connect(plan_hit)
+	pipe.scored.connect(scored)
 	add_child(pipe)
-	obstacle.append(generate_pipes())
+	obstacle.append(pipe)
+	if obstacle.size() > 4 :
+		#obstacle[0].get_node("up").t
+		#obstacle.pop_front()
+		obstacle.remove_at(0)
 
+func scored():
+	score += 1
+	$scoreLabel.text = "Score : " + str(score)
+
+func check_top():
+	if $plane.position.y < 0:
+		$plane.falling = true
+		stop_game()
+		
+func stop_game():
+	$GameOver.show()
+	$pipeTimer.stop()
+	$plane.flying = false
+	game_running = false
+	game_over = true
+	
 func plan_hit() :
-	pass
+	$plane.falling = true
+	stop_game()
+
+
+func _on_ground_hit():
+	$plane.falling = false
+	stop_game()
+
+
+func _on_game_over_restart():
+	new_game()

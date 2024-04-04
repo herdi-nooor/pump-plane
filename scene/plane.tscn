@@ -4,18 +4,19 @@
 [ext_resource type="Texture2D" uid="uid://bdjiu02552tj4" path="res://asset/plan.png" id="2_xtc4r"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xl1w3"]
-radius = 29.0
-height = 106.0
+radius = 13.0
+height = 38.0
 
 [node name="plane" type="CharacterBody2D"]
 slide_on_ceiling = false
 script = ExtResource("1_ak5lc")
 
 [node name="sprite" type="Sprite2D" parent="."]
-position = Vector2(0, 1)
-scale = Vector2(0.633333, 0.633333)
+position = Vector2(-5.87501, 0.124998)
+scale = Vector2(0.255, 0.348333)
 texture = ExtResource("2_xtc4r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-6, -1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_xl1w3")
